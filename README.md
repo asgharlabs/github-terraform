@@ -18,3 +18,10 @@ git pull
 terraform plan
 terraform apply
 ```
+
+If you need to import a repository that already exists, here
+is an example:
+```bash
+terraform import github_repository.asgharlabs-centos7_repository asgharlabs-centos7
+```
+The above will update the `tfstate` file with the needed information.
