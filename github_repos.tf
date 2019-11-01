@@ -24,6 +24,11 @@ resource "github_repository" "asgharlabs-centos7_repository" {
   archived = false
 }
 
+resource "github_repository" "default_settings_repository" {
+  name        = "default_settings"
+  description = "testing default settings"
+  license_template = "mit"
+}
 
 # resource "github_repository" "terraform_private_repository" {
 #   name        = "terraform_private_repository"
