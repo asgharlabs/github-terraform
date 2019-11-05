@@ -28,5 +28,5 @@ The above will update the `tfstate` file with the needed information.
 
 ## Github Actions
 
-I started to follow [this link](https://www.terraform.io/docs/github-actions/getting-started/index.html) so
+I started to follow [this link](https://github.com/hashicorp/terraform-github-actions) so
 everything can be ran via Github Actions.
