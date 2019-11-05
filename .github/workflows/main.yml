@@ -1,48 +1,46 @@
-workflow "Terraform" {
-  resolves = "terraform-plan"
-  on = "pull_request"
-}
-
-action "filter-to-pr-open-synced" {
-  uses = "actions/bin/filter@master"
-  args = "action 'opened|synchronize'"
-}
-
-action "terraform-fmt" {
-  uses = "hashicorp/terraform-github-actions/fmt@v0.5.3"
-  needs = "filter-to-pr-open-synced"
-  secrets = ["GITHUB_TOKEN"]
-  env = {
-    TF_ACTION_WORKING_DIR = "."
-  }
-}
-
-action "terraform-init" {
-  uses = "hashicorp/terraform-github-actions/init@v0.5.3"
-  needs = "terraform-fmt"
-  secrets = ["GITHUB_TOKEN"]
-  env = {
-    TF_ACTION_WORKING_DIR = "."
-  }
-}
-
-action "terraform-validate" {
-  uses = "hashicorp/terraform-github-actions/validate@v0.5.3"
-  needs = "terraform-init"
-  secrets = ["GITHUB_TOKEN"]
-  env = {
-    TF_ACTION_WORKING_DIR = "."
-  }
-}
-
-action "terraform-plan" {
-  uses = "hashicorp/terraform-github-actions/plan@v0.5.3"
-  needs = "terraform-validate"
-  secrets = ["GITHUB_TOKEN"]
-  env = {
-    TF_ACTION_WORKING_DIR = "."
-    # If you're using Terraform workspaces, set this to the workspace name.
-    TF_ACTION_WORKSPACE = "default"
-  }
-}
-
+name: 'Terraform Pull Request Workflow'
+on:
+  - pull_request
+jobs:
+  example:
+    name: 'Terraform Actions'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: 'Terraform Format'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.13
+          tf_actions_subcommand: 'fmt'
+          tf_actions_working_dir: '.'
+          tf_actions_comment: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'Terraform Init'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.13
+          tf_actions_subcommand: 'init'
+          tf_actions_working_dir: '.'
+          tf_actions_comment: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'Terraform Validate'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.13
+          tf_actions_subcommand: 'validate'
+          tf_actions_working_dir: '.'
+          tf_actions_comment: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'Terraform Plan'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.13
+          tf_actions_subcommand: 'plan'
+          tf_actions_working_dir: '.'
+          tf_actions_comment: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
