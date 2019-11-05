@@ -5,8 +5,8 @@ github organization.
 
 In order to use this you need to export these two variables:
 ```bash
-export GITHUB_TOKEN=<token>
-export GITHUB_ORGANIZATION=asgharlabs
+export TF_VAR_github_token=<token>
+export TF_VAR_github_organization=asgharlabs
 ```
 
 Then run the following in your repository:
@@ -25,3 +25,8 @@ is an example:
 terraform import github_repository.asgharlabs-centos7_repository asgharlabs-centos7
 ```
 The above will update the `tfstate` file with the needed information.
+
+## Github Actions
+
+I started to follow [this link](https://www.terraform.io/docs/github-actions/getting-started/index.html) so
+everything can be ran via Github Actions.
