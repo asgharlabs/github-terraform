@@ -18,7 +18,7 @@ action "terraform-fmt" {
 }
 
 action "terraform-init" {
-  uses = "hashicorp/terraform-github-actions/init@vv0.5.3"
+  uses = "hashicorp/terraform-github-actions/init@v0.5.3"
   needs = "terraform-fmt"
   secrets = ["GITHUB_TOKEN"]
   env = {
@@ -27,7 +27,7 @@ action "terraform-init" {
 }
 
 action "terraform-validate" {
-  uses = "hashicorp/terraform-github-actions/validate@vv0.5.3"
+  uses = "hashicorp/terraform-github-actions/validate@v0.5.3"
   needs = "terraform-init"
   secrets = ["GITHUB_TOKEN"]
   env = {
@@ -36,7 +36,7 @@ action "terraform-validate" {
 }
 
 action "terraform-plan" {
-  uses = "hashicorp/terraform-github-actions/plan@vv0.5.3"
+  uses = "hashicorp/terraform-github-actions/plan@v0.5.3"
   needs = "terraform-validate"
   secrets = ["GITHUB_TOKEN"]
   env = {
